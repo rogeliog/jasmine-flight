@@ -1,52 +1,60 @@
 // Karma configuration file
 
-// base path, that will be used to resolve files and exclude
-basePath = '';
+module.exports = function (config) {
+  'use strict';
 
-// list of files / patterns to load in the browser
-files = [
-  'bower_components/es5-shim/es5-shim.js',
-  'bower_components/es5-shim/es5-sham.js',
-  'bower_components/jquery/jquery.js',
+  config.set({
 
-  JASMINE,
-  JASMINE_ADAPTER,
-  REQUIRE,
-  REQUIRE_ADAPTER,
+    // base path, that will be used to resolve files and exclude
+    basePath: '',
 
-  'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
-  'lib/jasmine-flight.js',
+    frameworks: ['jasmine'],
 
-  {pattern: 'bower_components/flight/**/*.js', included: false},
-  {pattern: 'test/mock/*.js', included: false},
-  {pattern: 'test/spec/*.js', included: false},
+    // list of files / patterns to load in the browser
+    files: [
+      'bower_components/es5-shim/es5-shim.js',
+      'bower_components/es5-shim/es5-sham.js',
+      'bower_components/jquery/jquery.js',
 
-  'test/test-main.js'
-];
+      'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
+      'lib/jasmine-flight.js',
 
-// use dots reporter, as travis terminal does not support escaping sequences
-// possible values: 'dots', 'progress', 'junit', 'teamcity'
-// CLI --reporters progress
-reporters = ['dots'];
+      // hack to load RequireJS after the shim libs
+     'node_modules/karma-requirejs/lib/require.js',
+     'node_modules/karma-requirejs/lib/adapter.js',
 
-// web server port
-// CLI --port 9876
-port = 9876;
+      {pattern: 'bower_components/flight/**/*.js', included: false},
+      {pattern: 'test/mock/*.js', included: false},
+      {pattern: 'test/spec/*.js', included: false},
 
-// cli runner port
-// CLI --runner-port 9100
-runnerPort = 9100;
+      'test/test-main.js'
+    ],
 
-// enable / disable watching file and executing tests whenever any file changes
-// CLI --auto-watch --no-auto-watch
-autoWatch = true;
+    // use dots reporter, as travis terminal does not support escaping sequences
+    // possible values: 'dots', 'progress', 'junit', 'teamcity'
+    // CLI --reporters progress
+    reporters: ['dots'],
 
-// start these browsers
-browsers = [
-    'Chrome',
-    'Firefox'
-];
+    // web server port
+    // CLI --port 9876
+    port: 9876,
 
-// Auto run tests on start (when browsers are captured) and exit
-// CLI --single-run --no-single-run
-singleRun = false;
+    // cli runner port
+    // CLI --runner-port 9100
+    runnerPort: 9100,
+
+    // enable / disable watching file and executing tests whenever any file changes
+    // CLI --auto-watch --no-auto-watch
+    autoWatch: true,
+
+    // start these browsers
+    browsers: [
+      'Chrome',
+      'Firefox'
+    ],
+
+    // Auto run tests on start (when browsers are captured) and exit
+    // CLI --single-run --no-single-run
+    singleRun: false
+  });
+};
